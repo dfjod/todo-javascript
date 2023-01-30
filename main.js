@@ -1,33 +1,57 @@
-let input = document.getElementById('inputField');
-let addTaskButton = document.getElementById('addTask');
-let taskList = document.getElementById('taskList');
-let completedList = document.getElementById('completedList');
+window.addEventListener('load', () => {
 
-addTaskButton.addEventListener('click', () => {
-    let task = document.createElement('div');
-    let completeButton = document.createElement('button');
-    let deleteButton = document.createElement('button');
-    let taskText = document.createElement('p');
+    const formField = document.getElementById('newTaskForm');
+    const inputField = document.getElementById('newTaskInput');
+    const taskList = document.getElementById('tasks');
 
-    taskText.innerText = input.value;
-    completeButton.innerText = 'Complete';
-    deleteButton.innerText = 'Delete';
+    formField.addEventListener('submit', (e) => {
 
-    task.appendChild(taskText);
-    task.appendChild(completeButton);
-    task.appendChild(deleteButton);
+        e.preventDefault(); // Prevents from submitting and reloading the page
 
-    taskList.appendChild(task);
+        const task = inputField.value;
 
-    input.value = '';
+        // Creating the task element
+        const taskElement = document.createElement('div');
+        const taskContentElement = document.createElement('div');
+        const taskActionElement = document.createElement('div');
+
+        taskElement.appendChild(taskContentElement);
+        taskElement.appendChild(taskActionElement);
+
+        // Creating the editable task text field
+        const taskTextField = document.createElement('input');
+        taskTextField.type = 'text';
+        taskTextField.value = task;
+        taskTextField.setAttribute('readonly', 'readonly');
+
+        taskContentElement.appendChild(taskTextField);
+
+        // Creating edit and delete actions
+        const taskEditButton = document.createElement('button');
+        const taskDeleteButton = document.createElement('button');
+
+        taskEditButton.innerText = 'Edit';
+        taskDeleteButton.innerText = 'Delete';
+
+        taskActionElement.appendChild(taskEditButton);
+        taskActionElement.appendChild(taskDeleteButton);
+
+        taskList.appendChild(taskElement);
+        inputField.value = '';
+
+        taskEditButton.addEventListener('click', () => {
+            if (taskEditButton.innerText == 'Edit') {
+                taskEditButton.innerText = 'Save';
+                taskTextField.removeAttribute('readonly');
+                taskTextField.focus();
+            } else {
+                taskEditButton.innerText = 'Edit';
+                taskTextField.setAttribute('readonly', 'readonly');
+            }
+        });
+
+        taskDeleteButton.addEventListener('click', () => {
+            taskList.removeChild(taskElement);
+        });
+    });
 });
-
-// Ability to edit task
-
-// Ability to delete task
-
-// Ability to complete task
-
-// Ability to add and complete edit with enter press
-
-// Add a completed list

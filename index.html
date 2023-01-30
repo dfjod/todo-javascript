@@ -7,16 +7,21 @@
     <title>To-do list</title>
 </head>
 <body>
-    <h1>My to-do list</h1>
-    <div class="container">
-        <input id="inputField" type="text"><button id="addTask">+</button>
-        <h2>Task list</h2>
-        <div class="taskContainer" id="taskList">
-        </div>
-        <h2>Completed tasks list</h2>
-        <div class="completedTaskContainer" id="completedList">
-        </div>
-    </div>
+    <header>
+        <h1>My to-do list</h1>
+        <form id="newTaskForm">
+            <input type="text" id="newTaskInput" placeholder="What's on your mind?">
+            <button id="newTaskButton">Add</button>
+        </form>
+    </header>
+    <main>
+        <section class="taskList">
+            <h2>Task list</h2>
+            <div id="tasks">
+                
+            </div>
+        </section>
+    </main>
     <script src="main.js"></script>
 </body>
 </html>
