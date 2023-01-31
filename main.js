@@ -3,6 +3,7 @@ window.addEventListener('load', () => {
     const formField = document.getElementById('newTaskForm');
     const inputField = document.getElementById('newTaskInput');
     const taskList = document.getElementById('tasks');
+    const completedTaskList = document.getElementById('completedTasks');
 
     formField.addEventListener('submit', (e) => {
 
@@ -29,14 +30,18 @@ window.addEventListener('load', () => {
         // Creating edit and delete actions
         const taskEditButton = document.createElement('button');
         const taskDeleteButton = document.createElement('button');
+        const taskCompleteButton = document.createElement('button');
 
         taskEditButton.innerText = 'Edit';
         taskDeleteButton.innerText = 'Delete';
+        taskCompleteButton.innerText = 'Complete';
 
         taskActionElement.appendChild(taskEditButton);
+        taskActionElement.appendChild(taskCompleteButton);
         taskActionElement.appendChild(taskDeleteButton);
 
         taskList.appendChild(taskElement);
+
         inputField.value = '';
 
         taskEditButton.addEventListener('click', () => {
@@ -47,6 +52,18 @@ window.addEventListener('load', () => {
             } else {
                 taskEditButton.innerText = 'Edit';
                 taskTextField.setAttribute('readonly', 'readonly');
+            }
+        });
+
+        taskCompleteButton.addEventListener('click', (e) => {
+            if (taskElement.parentElement.id == 'tasks') {
+                taskCompleteButton.innerText = 'Uncomplete';
+                taskList.removeChild(taskElement);
+                completedTaskList.appendChild(taskElement);
+            } else {
+                taskCompleteButton.innerText = 'Complete';
+                completedTaskList.removeChild(taskElement);
+                taskList.appendChild(taskElement);
             }
         });
 
